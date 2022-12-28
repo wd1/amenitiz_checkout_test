@@ -50,11 +50,10 @@ RSpec.describe "LineItems", type: :request do
       @line_item = LineItem.new
       @line_item.cart = cart
       @line_item.product = chosen_product
-      @line_item.quantity = 1
+      @line_item.quantity = 2
       @line_item.order = nil
-
-      # Save and redirect to cart show path
       @line_item.save!
+
       puts "Buy GR1"
       puts "Expected: [GR1, GR1], Price: 3.11€"
       expect(cart.sub_total).to eq(3.11)
