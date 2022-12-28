@@ -1,0 +1,22 @@
+<h2>Cart show</h2>
+<ul>
+  <% @cart.line_items.each do |line_item| %>
+    <li>Item: <%= line_item.product.name %>/ Price: <%= number_to_currency(line_item.product.price, locale: "fr") %>/ Quantity: <%= line_item.quantity %>/ Total Price: <%= number_to_currency(line_item.total_price, locale: "fr") %>
+    
+    <ul>
+      <li>
+        <%= link_to "Add one", line_item_add_path(:id => line_item), data: { 'turbo-method' => :post } %>
+        <%= link_to "Reduce one", line_item_reduce_path(:id => line_item), data: { 'turbo-method' => :post } %>
+      </li>
+      <li>
+        <%= link_to "Remove item", line_item_path(line_item), data: { 'turbo-method' => :delete } %>
+      </li>
+    </ul>
+    #
+  <% end %>
+</ul>
+<h3>Sub total: <span id="subtotal"><%= number_to_currency(@cart.sub_total, locale: "fr") %></span></h3>
+<%= link_to "Add more products", root_path %><br>
+<%= link_to "Proceed to checkout", new_order_path %><br>
+
+<%= link_to "Empty cart", cart_path(@current_cart), data: { 'turbo-method' => :post,confirm: "Are you sure?"}%>
